@@ -3,72 +3,73 @@
     <head>
         <script src="lib/angular.js"></script>
         <script src="controllers/app.js"></script>
-        <script src="controllers/StudentsController.js"></script>
-        <script src="controllers/FieldTripsController.js"></script>
+        <script src="controllers/QOneController.js"></script>
+        <script src="controllers/QTwoController.js"></script>
+        <script src="controllers/QThreeController.js"></script>
         <script src="services/SurveyFactory.js"></script>
         <link rel="stylesheet" href="css/bootstrap.css">
-        <title>Student App</title>
+        <title>SurveyBot</title>
     </head>
     <body>
         <div class="container">
-            <div ng-controller="StudentsCtrl">
-                <div class="row" ng-show="students.length">
-                    <div class="col-md-12">
-                        <h4>Search Students</h4>
-                        <form class="form-inline" role="form">
-                            <div class="form-group">
-                                <input type="text" ng-model="query" id="student-name" class="form-control" placeholder="Search">
-                            </div> <!-- end form-group -->
-                        </form>
-                    </div> <!-- end col-md-12 -->
-                </div> <!-- end row -->
-                <div class="row">
-                    <div class="col-md-6">
-                        <h2 ng-show="students.length && filtered.length">Student List</h2>
-                        <h2 ng-show="students.length && !filtered.length">No Matches</h2>
-                        <ul>
-                            <li ng-repeat="item in filtered = (students | filter:query)">
-                                <span ng-click="editing = true" ng-hide="editing">
-                                    {{item.name}} <a ng-click="SurveyFactory.deleteStudent(item)">Delete</a>
-                                </span>
-                                <span class="form-group" ng-show="editing" ng-submit="editing = false">
-                                    <form class="form-inline" role="form">
-                                        <input type="text" class="form-control input-sm" ng-model="item.name" placeholder="Name" required>
-                                        <button class="btn btn-default btn-sm" type="submit">Save</button>
-                                    </form>
-                                </span>
-                            </li>
-                        </ul>
-                    </div> <!-- end col-md-6 -->
-                    <div class="col-md-6">
-                        <h2>New Student</h2>
-                        <form ng-submit="SurveyFactory.addSurvey()" class="form-inline" role="form">
-                            <div class="form-group">
-                                <input type="text" ng-model="SurveyFactory.studentName" class="form-control" placeholder="Enter name">
-                            </div> <!-- end form-group -->
-                            <button type="submit" class="btn btn-default">Submit</button>
-                        </form>
-                    </div> <!-- end col-md-6 -->
-                </div> <!-- end row -->
-            </div> <!-- end StudentsCtrl -->
-            <div class="row permission" ng-controller="FieldTripsCtrl">
-                <div class="col-md-6" ng-show="studentsWithoutPermission.length">
-                    <h3>Without Permission Slips</h3>
-                    <ul>
-                        <li ng-repeat="item in studentsWithoutPermission = (students | filter:{permissionSlip: false})">
-                            {{item.name}} <a ng-click="addStudentWithPermissionSlip(item)"> - received permission slip -</a>
-                        </li>
-                    </ul>
-                </div> <!-- end col-md-6 -->
-                <div class="col-md-6" ng-show="studentsWithPermission.length">
-                    <h3>With Permission Slips</h3>
-                    <ul>
-                        <li ng-repeat="item in studentsWithPermission = (students | filter:{permissionSlip: true})">
-                            {{item.name}}
-                        </li>
-                    </ul>
-                </div> <!-- end col-md-6 -->
-            </div> <!-- end row permission --> <!-- end FieldTripsCtrl -->
+            <form ng-submit="SurveyFactory.addSurvey()" class="form-inline" role="form">
+                <div class="form-group">
+                    <div ng-controller="QOneCtrl">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4>Survey</h4>
+                                <div class="form-group">
+                                    <label>Choose a class</label><br>
+                                    <input type="radio" ng-model="SurveyFactory.surveyOne" name="class" value="Cleric">Cleric
+                                    <input type="radio" ng-model="SurveyFactory.surveyOne" name="class" value="Fighter">Fighter<br>
+                                    <input type="radio" ng-model="SurveyFactory.surveyOne" name="class" value="Rogue">Rogue
+                                    <input type="radio" ng-model="SurveyFactory.surveyOne" name="class" value="Wizard">Wizard
+                                </div> <!-- end form-group -->
+                            </div> <!-- end col-md-6 -->
+                        </div> <!-- end row -->
+                    </div> <!-- end QOneCtrl -->
+                    <div ng-controller="QTwoCtrl">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Choose a race</label><br>
+                                    <input type="radio" ng-model="SurveyFactory.surveyTwo" name="race" value="Human">Human
+                                    <input type="radio" ng-model="SurveyFactory.surveyTwo" name="race" value="Dwarf">Dwarf<br>
+                                    <input type="radio" ng-model="SurveyFactory.surveyTwo" name="race" value="Elf">Elf
+                                    <input type="radio" ng-model="SurveyFactory.surveyTwo" name="race" value="Halfling">Halfling
+                                </div> <!-- end form-group -->
+                            </div> <!-- end col-md-6 -->
+                        </div> <!-- end row -->
+                    </div> <!-- end QTwoCtrl -->
+                    <div ng-controller="QThreeCtrl">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Choose a background</label><br>
+                                    <input type="radio" ng-model="SurveyFactory.surveyThree" name="background" value="Hermit">Hermit
+                                    <input type="radio" ng-model="SurveyFactory.surveyThree" name="background" value="Noble">Noble<br>
+                                    <input type="radio" ng-model="SurveyFactory.surveyThree" name="background" value="Soldier">Soldier
+                                    <input type="radio" ng-model="SurveyFactory.surveyThree" name="background" value="Urchin">Urchin
+                                </div> <!-- end form-group -->
+                            </div> <!-- end col-md-6 -->
+                        </div> <!-- end row -->
+                    </div> <!-- end QThreeCtrl -->
+                </div> <!-- end form-group -->
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
         </div> <!-- end container -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2 ng-show="surveys.length">Survey List</h2>
+                    <!-- <h2 ng-show="students.length && !filtered.length">No Matches</h2> -->
+                    <ul>
+                        <li ng-repeat="item in surveys = (surveys)">
+                            Race: {{item.questionOne}} - Class: {{item.questionTwo}} - Background: {{item.questionThree}} <a ng-click="SurveyFactory.deleteSurvey(item)">Delete</a>
+                        </li>
+                    </ul>
+                </div> <!-- end col-md-6 -->
+            </div>
+        </div>
     </body>
 </html>
