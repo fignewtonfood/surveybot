@@ -1,1 +1,1 @@
-var studentRoster = angular.module('studentRoster', []);
+var surveyBot = angular.module('surveyBot', []);
